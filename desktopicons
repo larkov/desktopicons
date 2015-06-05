@@ -1,18 +1,11 @@
 #!/bin/bash
-if [ ! $# == 1 ]; then
-  echo "Shows or hides desktop icons"
-  echo "Usage: $0 [s|h]"
-  exit
-fi
-if [ $1 == s ]; then
+ICONS=`/usr/bin/defaults read com.apple.finder CreateDesktop`
+if [ $ICONS == false ]; then
   defaults write com.apple.finder CreateDesktop true
   killall Finder
   echo "Desktop icons are now visible"
-elif [ $1 == h ]; then
+elif [ $ICONS == true ]; then
   defaults write com.apple.finder CreateDesktop false
   killall Finder
   echo "Desktop icons are now hidden"
-else
-  echo "Wrong argument"
-  echo "Usage: $0 [s|h]"
 fi
